@@ -40,10 +40,21 @@ seedInfo.then(function(value){
         planted_on: Date.now(),
     });
     return Promise.all([carrot, broccoli, eggplant]);
-}).then((vegetables) => {
-    vegetables.forEach(veg => {
-        console.log(veg.color);
-    });
+}).then((vegetable)=>{
+    return Promise.all([Gardener.create({
+        name: 'Dan',
+        age: 27,
+        favoriteVegetableId: vegetable[0].id
+    }), vegetable]);
+    
+}).then(([gardener, vegetable]) =>{
+    return Plot.create({
+        size: 50,
+        shaded: false,
+        gardenerId: gardener.id
+    }).then((plot) =>{
+        return plot.addVegetables(vegetable)
+    })
 })
 .catch(function(error){
     console.log(error);
