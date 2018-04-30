@@ -26,4 +26,9 @@ Vegetable.belongsToMany(Plot, {through: 'plot-vegetable-table'});
 
 Gardener.belongsTo(Vegetable, {as: 'favoriteVegetable'})
 
-module.exports = db;
+module.exports = {
+    db,
+    Gardener,
+    Plot,
+    Vegetable
+};
